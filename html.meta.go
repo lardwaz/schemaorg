@@ -325,7 +325,6 @@ func getRenderedTemplate(FileDirectory string, metadata interface{}) string {
 }
 
 func (v *VenueMeta) String() string {
-	// dans place fer getRenderedTemplate fer JSON Marshalling ici
 	b, _ := json.Marshal(v)
 
 	return string(b)
@@ -333,17 +332,25 @@ func (v *VenueMeta) String() string {
 }
 
 func (r *RecipeMeta) String() string {
-	return getRenderedTemplate("templates/schemaorg/recipe.json.tmpl", r)
+	b, _ := json.Marshal(r)
+
+	return string(b)
 }
 
 func (m *MovieMeta) String() string {
-	return getRenderedTemplate("templates/schemaorg/movie.json.tmpl", m)
+	b, _ := json.Marshal(m)
+
+	return string(b)
 }
 
 func (e *EventMeta) String() string {
-	return getRenderedTemplate("templates/schemaorg/event.json.tmpl", e)
+	b, _ := json.Marshal(e)
+
+	return string(b)
 }
 
 func (w *WebpageMeta) String() string {
-	return getRenderedTemplate("templates/schemaorg/webpage.json.tmpl", w)
+	b, _ := json.Marshal(w)
+
+	return string(b)
 }
