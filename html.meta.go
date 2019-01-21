@@ -1,9 +1,7 @@
 package schemaorg
 
 import (
-	"bytes"
 	"encoding/json"
-	"text/template"
 )
 
 const Context = "http://schema.org"
@@ -26,10 +24,10 @@ type OgParams struct {
 
 //WebpageMeta represents schema.org's webpage
 type WebpageMeta struct {
-	context     string `json:"@context"`
-	_type       string `json:"@type"`
+	MetaContext string `json:"@context"`
+	MetaType    string `json:"@type"`
 	Title       string `json:"title"`
-	URL         string `json:"uRL"`
+	URL         string `json:"url"`
 	Description string `json:"description"`
 	Image       string `json:"image"`
 	Keywords    string `json:"keywords"`
@@ -37,40 +35,40 @@ type WebpageMeta struct {
 
 //EventMeta represents schema.org's event
 type EventMeta struct {
-	context     string        `json:"@context"`
-	_type       string        `json:"@type"`
-	Name        string        `json: "name"`
-	StartDate   string        `json: "startDate"`
-	EndDate     string        `json: "endDate"`
-	Image       string        `json: "image"`
-	URL         string        `json: "url"`
-	Organizer   string        `json: "organizer"`
-	Description string        `json: "description"`
-	Location    EventLocation `json: "location"`
+	MetaContext string        `json:"@context"`
+	MetaType    string        `json:"@type"`
+	Name        string        `json:"name"`
+	StartDate   string        `json:"startDate"`
+	EndDate     string        `json:"endDate"`
+	Image       string        `json:"image"`
+	URL         string        `json:"url"`
+	Organizer   string        `json:"organizer"`
+	Description string        `json:"description"`
+	Location    EventLocation `json:"location"`
 }
 type EventAddress struct {
-	_type         string `json:"@type"`
-	StreetAddress string `json:"streetAddress`
+	MetaType      string `json:"@type"`
+	StreetAddress string `json:"streetAddress"`
 }
 
 type Geo struct {
-	_type     string `json:"@type"`
+	MetaType  string `json:"@type"`
 	Latitude  string `json:"latitude"`
 	Longitude string `json:"longitude"`
 }
 
 type Map struct {
-	_type string  `json:"@type"`
-	Mtype MapType `json:"mapType"`
-	URL   string  `json:"url"`
+	MetaType string  `json:"@type"`
+	Mtype    MapType `json:"mapType"`
+	URL      string  `json:"url"`
 }
 
 type MapType struct {
-	_ID string `json:"@id"`
+	ID string `json:"@id"`
 }
 
 type EventLocation struct {
-	_type       string       `json:"@type"`
+	MetaType    string       `json:"@type"`
 	Name        string       `json:"name"`
 	Description string       `json:"description"`
 	Telephone   string       `json:"telephone"`
@@ -82,34 +80,34 @@ type EventLocation struct {
 }
 
 type Person struct {
-	_type string `json:"@type"`
-	Name  string `json:"name"`
+	MetaType string `json:"@type"`
+	Name     string `json:"name"`
 }
 
 // MovieMeta represents schema.org's movie
 type MovieMeta struct {
-	context         string   `json:"@context"`
-	_type           string   `json:"@type"`
-	Name            string   `json: "name"`
-	URL             string   `json: "url"`
-	Image           string   `json: "image"`
-	Trailer         string   `json: "trailer"`
-	ContentRating   string   `json: "contentRating"`
-	AggregateRating string   `json: "aggregateRating"`
-	About           string   `json: "about"`
-	Description     string   `json: "description"`
-	Comment         string   `json: "comment"`
-	Genre           []string `json: "genre"`
-	Actor           []Person `json: "actor"`
-	Author          []Person `json: "author"`
-	Director        []Person `json: "director"`
+	MetaContext     string   `json:"@context"`
+	MetaType        string   `json:"@type"`
+	Name            string   `json:"name"`
+	URL             string   `json:"url"`
+	Image           string   `json:"image"`
+	Trailer         string   `json:"trailer"`
+	ContentRating   string   `json:"contentRating"`
+	AggregateRating string   `json:"aggregateRating"`
+	About           string   `json:"about"`
+	Description     string   `json:"description"`
+	Comment         string   `json:"comment"`
+	Genre           []string `json:"genre"`
+	Actor           []Person `json:"actor"`
+	Author          []Person `json:"author"`
+	Director        []Person `json:"director"`
 }
 
 // RecipeMeta represents schema.org's recipe. @see https://schema.org/Recipe
 // Format for CookTime, PrepTime, TotalTime: https://en.wikipedia.org/wiki/ISO_8601#Durations
 type RecipeMeta struct {
-	context            string   `json:"@context"`
-	_type              string   `json:"@type"`
+	MetaContext        string   `json:"@context"`
+	MetaType           string   `json:"@type"`
 	Name               string   `json:"name"`
 	RecipeCuisine      string   `json:"datePublished"`
 	RecipeCategory     string   `json:"description"`
@@ -127,7 +125,7 @@ type RecipeMeta struct {
 }
 
 type VenueAddress struct {
-	_type           string `json:"@type"`
+	MetaType        string `json:"@type"`
 	StreetAddress   string `json:"streetAddress"`
 	AddressLocality string `json:"addressLocality"`
 	AddressRegion   string `json:"addressRegion"`
@@ -135,8 +133,8 @@ type VenueAddress struct {
 
 // VenueMeta represents schema.org's venue
 type VenueMeta struct {
-	context     string       `json:"@context"`
-	_type       string       `json:"@type"`
+	MetaContext string       `json:"@context"`
+	MetaType    string       `json:"@type"`
 	Name        string       `json:"name"`
 	Description string       `json:"description"`
 	Telephone   string       `json:"telephone"`
@@ -187,8 +185,8 @@ func NewMovieMeta(name, url, image, trailer, contentrating, aggregaterating, abo
 	}
 
 	return MovieMeta{
-		context:         Context,
-		_type:           "Movie",
+		MetaContext:     Context,
+		MetaType:        "Movie",
 		Name:            name,
 		URL:             url,
 		Image:           image,
@@ -206,10 +204,10 @@ func NewMovieMeta(name, url, image, trailer, contentrating, aggregaterating, abo
 }
 
 //NewEventMeta returns a movie meta
-func NewEventMeta(name, startdate, enddate, image, url, organizer, description, locationname, locationdescription, locationtelephone, locationurl, locationimage, locationaddress, lat, lng, maptype, mapURL string) EventMeta {
+func NewEventMeta(name, startdate, enddate, image, url, organizer, description, locationname, locationdescription, locationtelephone, locationurl, locationimage, locationaddress, lat, lng string) EventMeta {
 	return EventMeta{
-		context:     Context,
-		_type:       "Event",
+		MetaContext: Context,
+		MetaType:    "Event",
 		Name:        name,
 		StartDate:   startdate,
 		EndDate:     enddate,
@@ -218,24 +216,24 @@ func NewEventMeta(name, startdate, enddate, image, url, organizer, description, 
 		Organizer:   organizer,
 		Description: description,
 		Location: EventLocation{
-			_type:       "Place",
+			MetaType:    "Place",
 			Description: locationdescription,
 			Telephone:   locationtelephone,
 			URL:         locationurl,
 			Image:       locationimage,
 			Address: EventAddress{
-				_type:         "PostalAddress",
+				MetaType:      "PostalAddress",
 				StreetAddress: locationaddress,
 			},
 			Geoloc: Geo{
-				_type:     "GeoCoordinates",
+				MetaType:  "GeoCoordinates",
 				Latitude:  lat,
 				Longitude: lng,
 			},
 			HasMap: Map{
-				_type: "Map",
+				MetaType: "Map",
 				Mtype: MapType{
-					_ID: "http://schema.org/VenueMap",
+					ID: "http://schema.org/VenueMap",
 				},
 				URL: "https://www.google.com/maps/@" + lat + "," + lng + ",11z",
 			},
@@ -246,8 +244,8 @@ func NewEventMeta(name, startdate, enddate, image, url, organizer, description, 
 //NewWebPageMeta returns a movie meta
 func NewWebPageMeta(title, url, description, image, keywords string) WebpageMeta {
 	return WebpageMeta{
-		context:     Context,
-		_type:       "WebPage",
+		MetaContext: Context,
+		MetaType:    "WebPage",
 		Title:       title,
 		URL:         url,
 		Description: description,
@@ -259,8 +257,8 @@ func NewWebPageMeta(title, url, description, image, keywords string) WebpageMeta
 //NewRecipeMeta returns a movie meta
 func NewRecipeMeta(name, recipecuisine, recipecategory, description, image, video, recipeyield, cooktime, preptime, totaltime, datepublished, url string, ingredients, recipeinstructions []string) RecipeMeta {
 	return RecipeMeta{
-		context:            Context,
-		_type:              "Recipe",
+		MetaContext:        Context,
+		MetaType:           "Recipe",
 		Name:               name,
 		RecipeCuisine:      recipecuisine,
 		RecipeCategory:     recipecategory,
@@ -281,8 +279,8 @@ func NewRecipeMeta(name, recipecuisine, recipecategory, description, image, vide
 //NewVenueMeta returns a movie meta
 func NewVenueMeta(name, description, telephone, url, image, street, locality, region, lat, lng string, gallery []string) VenueMeta {
 	return VenueMeta{
-		context:     "Place",
-		_type:       context,
+		MetaType:    "Place",
+		MetaContext: Context,
 		Name:        name,
 		Description: description,
 		Telephone:   telephone,
@@ -290,67 +288,45 @@ func NewVenueMeta(name, description, telephone, url, image, street, locality, re
 		Image:       image,
 		Gallery:     gallery,
 		Address: VenueAddress{
-			_type:           "PostalAddress",
+			MetaType:        "PostalAddress",
 			StreetAddress:   street,
 			AddressLocality: locality,
 			AddressRegion:   region,
 		},
 		LatLng: Geo{
-			_type:     "GeoCoordinates",
+			MetaType:  "GeoCoordinates",
 			Latitude:  lat,
 			Longitude: lng,
 		},
 		HasMap: Map{
-			_type: "Map",
-			Mtype: MapType{_ID: "http://schema.org/VenueMap"},
-			URL:   "https://www.google.com/maps/@" + lat + ", " + lng + " ,11z",
+			MetaType: "Map",
+			Mtype:    MapType{ID: "http://schema.org/VenueMap"},
+			URL:      "https://www.google.com/maps/@" + lat + ", " + lng + " ,11z",
 		},
 	}
 }
 
-func getRenderedTemplate(FileDirectory string, metadata interface{}) string {
-	var output bytes.Buffer
-	t := template.New("app")
-	t, err := t.ParseFiles(FileDirectory)
-	if err != nil {
-		return ""
-	}
-
-	err = t.Execute(&output, metadata)
-	if err != nil {
-		return ""
-	}
-
-	return output.String()
+func (v *VenueMeta) String() (string, error) {
+	b, err := json.Marshal(v)
+	return string(b), err
 }
 
-func (v *VenueMeta) String() string {
-	b, _ := json.Marshal(v)
-
-	return string(b)
-
+func (r *RecipeMeta) String() (string, error) {
+	b, err := json.Marshal(r)
+	return string(b), err
 }
 
-func (r *RecipeMeta) String() string {
-	b, _ := json.Marshal(r)
-
-	return string(b)
+func (m *MovieMeta) String() (string, error) {
+	b, err := json.Marshal(m)
+	return string(b), err
 }
 
-func (m *MovieMeta) String() string {
-	b, _ := json.Marshal(m)
-
-	return string(b)
+func (e *EventMeta) String() (string, error) {
+	b, err := json.Marshal(e)
+	return string(b), err
 }
 
-func (e *EventMeta) String() string {
-	b, _ := json.Marshal(e)
-
-	return string(b)
-}
-
-func (w *WebpageMeta) String() string {
-	b, _ := json.Marshal(w)
-
-	return string(b)
+func (w *WebpageMeta) String() (string, error) {
+	b, err := json.Marshal(w)
+	return string(b), err
 }
