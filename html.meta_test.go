@@ -23,16 +23,16 @@ func TestNewOgParams(t *testing.T) {
 		keywords:    "Test keywords",
 	}
 
-	t.Run("Test New OG params", func(t *testing.T) {
-		duplicate := args{
-			title:       "Test title",
-			url:         "Test url",
-			description: "Test description",
-			image:       "Test image",
-			keywords:    "Test keywords",
-		}
+	og := OgParams{
+		Title:       x.title,
+		URL:         x.url,
+		Description: x.description,
+		Image:       x.image,
+		Keywords:    x.keywords,
+	}
 
-		if got := NewOgParams(duplicate.title, duplicate.url, duplicate.description, duplicate.image, duplicate.keywords); !reflect.DeepEqual(got, x) {
+	t.Run("Test New OG params", func(t *testing.T) {
+		if got := NewOgParams(x.title, x.url, x.description, x.image, x.keywords); !reflect.DeepEqual(got, og) {
 			t.Errorf("NewOgParams() = %v, want %v", got, x)
 		}
 	})
@@ -66,13 +66,32 @@ func TestNewMovieMeta(t *testing.T) {
 		about:           "Test about",
 		description:     "Test description",
 		comment:         "Test comment",
-		genre:           []string{},
+		genre:           []string{"Action", "Emotion"},
 		actor:           []string{},
 		author:          []string{},
 		director:        []string{},
 	}
+
+	meta := MovieMeta{
+		MetaContext:     Context,
+		MetaType:        "Movie",
+		Name:            x.name,
+		URL:             x.url,
+		Image:           x.image,
+		Trailer:         x.trailer,
+		ContentRating:   x.contentrating,
+		AggregateRating: x.aggregaterating,
+		About:           x.about,
+		Description:     x.description,
+		Comment:         x.comment,
+		Genre:           x.genre,
+		Actor:           []Person{},
+		Author:          []Person{},
+		Director:        []Person{},
+	}
+
 	t.Run("Test Movie", func(t *testing.T) {
-		if got := NewMovieMeta(x.name, x.url, x.image, x.trailer, x.contentrating, x.aggregaterating, x.about, x.description, x.comment, x.genre, x.actor, x.author, x.director); !reflect.DeepEqual(got, x) {
+		if got := NewMovieMeta(x.name, x.url, x.image, x.trailer, x.contentrating, x.aggregaterating, x.about, x.description, x.comment, x.genre, x.actor, x.author, x.director); !reflect.DeepEqual(got, meta) {
 			t.Errorf("NewMovieMeta() = %v, want %v", got, x)
 		}
 	})
@@ -116,11 +135,46 @@ func TestNewEventMeta(t *testing.T) {
 		lng:                 "22.14",
 	}
 
+	meta := EventMeta{
+		MetaContext: Context,
+		MetaType:    "Event",
+		Name:        x.name,
+		StartDate:   x.startdate,
+		EndDate:     x.enddate,
+		Image:       x.image,
+		URL:         x.url,
+		Organizer:   x.organizer,
+		Description: x.description,
+		Location: EventLocation{
+			MetaType:    "Place",
+			Description: x.locationdescription,
+			Telephone:   x.locationtelephone,
+			URL:         x.locationurl,
+			Image:       x.locationimage,
+			Address: EventAddress{
+				MetaType:      "PostalAddress",
+				StreetAddress: x.locationaddress,
+			},
+			Geoloc: Geo{
+				MetaType:  "GeoCoordinates",
+				Latitude:  x.lat,
+				Longitude: x.lng,
+			},
+			HasMap: Map{
+				MetaType: "Map",
+				Mtype: MapType{
+					ID: "http://schema.org/VenueMap",
+				},
+				URL: "https://www.google.com/maps/@" + x.lat + "," + x.lng + ",11z",
+			},
+		},
+	}
+
 	t.Run("Event Test", func(t *testing.T) {
 		if got := NewEventMeta(
 			x.name, x.startdate, x.enddate, x.image, x.url, x.organizer, x.description, x.locationname, x.locationdescription, x.locationtelephone, x.locationurl, x.locationimage, x.locationaddress, x.lat, x.lng,
-		); !reflect.DeepEqual(got, x) {
-			t.Errorf("NewEventMeta() = %v, want %v", got, x)
+		); !reflect.DeepEqual(got, meta) {
+			t.Errorf("NewEventMeta() = %v, want %v", got, meta)
 		}
 	})
 
@@ -143,6 +197,16 @@ func TestNewWebPageMeta(t *testing.T) {
 		keywords:    "",
 	}
 
+	meta := WebpageMeta{
+		MetaContext: Context,
+		MetaType:    "WebPage",
+		Title:       x.title,
+		URL:         x.url,
+		Description: x.description,
+		Image:       x.image,
+		Keywords:    x.keywords,
+	}
+
 	t.Run("WebPageMeta test", func(t *testing.T) {
 		duplicate := args{
 			title:       "Test title",
@@ -152,8 +216,8 @@ func TestNewWebPageMeta(t *testing.T) {
 			keywords:    "",
 		}
 
-		if got := NewWebPageMeta(duplicate.title, duplicate.url, duplicate.description, duplicate.image, duplicate.keywords); !reflect.DeepEqual(got, x) {
-			t.Errorf("NewWebPageMeta() = %v, want %v", got, x)
+		if got := NewWebPageMeta(duplicate.title, duplicate.url, duplicate.description, duplicate.image, duplicate.keywords); !reflect.DeepEqual(got, meta) {
+			t.Errorf("NewWebPageMeta() = %v, want %v", got, meta)
 		}
 	})
 
@@ -194,27 +258,28 @@ func TestNewRecipeMeta(t *testing.T) {
 		recipeinstructions: []string{"recipeinstructions1", "recipeinstructions2", "recipeinstructions3"},
 	}
 
+	meta := RecipeMeta{
+		MetaContext:        Context,
+		MetaType:           "Recipe",
+		Name:               x.name,
+		RecipeCuisine:      x.recipecuisine,
+		RecipeCategory:     x.recipecategory,
+		Description:        x.description,
+		Image:              x.image,
+		Video:              x.video,
+		Ingredients:        x.ingredients,
+		RecipeInstructions: x.recipeinstructions,
+		RecipeYield:        x.recipeyield,
+		CookTime:           x.cooktime,
+		PrepTime:           x.preptime,
+		TotalTime:          x.totaltime,
+		DatePublished:      x.datepublished,
+		URL:                x.url,
+	}
+
 	t.Run("Test", func(t *testing.T) {
-
-		duplicate := args{
-			name:               "Test name",
-			recipecuisine:      "Mauricien",
-			recipecategory:     "Test recipecategory",
-			description:        "Test description",
-			image:              "image.png",
-			video:              "vids.mpeg",
-			recipeyield:        "Test recipeyield",
-			cooktime:           "10 mins",
-			preptime:           "10 mins",
-			totaltime:          "10 mins",
-			datepublished:      "15/01/2019",
-			url:                "Test url",
-			ingredients:        []string{"ingredients1", "ingredients2", "ingredients3"},
-			recipeinstructions: []string{"recipeinstructions1", "recipeinstructions2", "recipeinstructions3"},
-		}
-
-		if got := NewRecipeMeta(duplicate.name, duplicate.recipecuisine, duplicate.recipecategory, duplicate.description, duplicate.image, duplicate.video, duplicate.recipeyield, duplicate.cooktime, duplicate.preptime, duplicate.totaltime, duplicate.datepublished, duplicate.url, duplicate.ingredients, duplicate.recipeinstructions); !reflect.DeepEqual(got, x) {
-			t.Errorf("NewRecipeMeta() = %v, want %v", got, x)
+		if got := NewRecipeMeta(x.name, x.recipecuisine, x.recipecategory, x.description, x.image, x.video, x.recipeyield, x.cooktime, x.preptime, x.totaltime, x.datepublished, x.url, x.ingredients, x.recipeinstructions); !reflect.DeepEqual(got, meta) {
+			t.Errorf("NewRecipeMeta() = %v, want %v", got, meta)
 		}
 	})
 
@@ -248,23 +313,36 @@ func TestNewVenueMeta(t *testing.T) {
 		gallery:     []string{"image1.png", "image2.png", "image3.png"},
 	}
 
-	t.Run("Test", func(t *testing.T) {
-		xcopy := args{
-			name:        "Test name",
-			description: "Test description",
-			telephone:   "Test telephone",
-			url:         "Test url",
-			image:       "Test image",
-			street:      "Test street",
-			locality:    "Test locality",
-			region:      "Test region",
-			lat:         "10.00",
-			lng:         "-10.00",
-			gallery:     []string{"image1.png", "image2.png", "image3.png"},
-		}
+	meta := VenueMeta{
+		MetaType:    "Place",
+		MetaContext: Context,
+		Name:        x.name,
+		Description: x.description,
+		Telephone:   x.telephone,
+		URL:         x.url,
+		Image:       x.image,
+		Gallery:     x.gallery,
+		Address: VenueAddress{
+			MetaType:        "PostalAddress",
+			StreetAddress:   x.street,
+			AddressLocality: x.locality,
+			AddressRegion:   x.region,
+		},
+		LatLng: Geo{
+			MetaType:  "GeoCoordinates",
+			Latitude:  x.lat,
+			Longitude: x.lng,
+		},
+		HasMap: Map{
+			MetaType: "Map",
+			Mtype:    MapType{ID: "http://schema.org/VenueMap"},
+			URL:      "https://www.google.com/maps/@" + x.lat + ", " + x.lng + " ,11z",
+		},
+	}
 
-		if got := NewVenueMeta(xcopy.name, xcopy.description, xcopy.telephone, xcopy.url, xcopy.image, xcopy.street, xcopy.locality, xcopy.region, xcopy.lat, xcopy.lng, xcopy.gallery); !reflect.DeepEqual(got, x) {
-			t.Errorf("NewVenueMeta() = %v, want %v", got, x)
+	t.Run("Test", func(t *testing.T) {
+		if got := NewVenueMeta(x.name, x.description, x.telephone, x.url, x.image, x.street, x.locality, x.region, x.lat, x.lng, x.gallery); !reflect.DeepEqual(got, meta) {
+			t.Errorf("NewVenueMeta() = %v, want %v", got, meta)
 		}
 	})
 
