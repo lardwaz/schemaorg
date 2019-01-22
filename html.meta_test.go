@@ -363,7 +363,7 @@ func TestVenueMeta_String(t *testing.T) {
 		HasMap      Map
 	}
 
-	x := fields{
+	x := VenueMeta{
 		MetaType:    "Place",
 		MetaContext: Context,
 		Name:        "Test name",
@@ -394,7 +394,7 @@ func TestVenueMeta_String(t *testing.T) {
 
 	validmarshalled, _ := json.Marshal(x)
 
-	y := fields{
+	y := VenueMeta{
 		MetaType:    "Place",
 		MetaContext: Context,
 		Name:        "",
@@ -425,7 +425,7 @@ func TestVenueMeta_String(t *testing.T) {
 
 	marshalled, _ := json.Marshal(y)
 
-	t.Run("test", func(t *testing.T) {
+	t.Run("Venue Stringer Test 1", func(t *testing.T) {
 		w := &VenueMeta{
 			MetaType:    "Place",
 			MetaContext: Context,
@@ -457,7 +457,9 @@ func TestVenueMeta_String(t *testing.T) {
 		if got, _ := w.String(); got != string(validmarshalled) {
 			t.Errorf("VenueMeta.String() = %v, want %v", got, string(validmarshalled))
 		}
+	})
 
+	t.Run("Venue Stringer Test 2", func(t *testing.T) {
 		i := &VenueMeta{
 			MetaType:    "Place",
 			MetaContext: Context,
@@ -491,6 +493,7 @@ func TestVenueMeta_String(t *testing.T) {
 			t.Errorf("MovieMeta.String() = %v, want %v", got, string(marshalled))
 		}
 	})
+
 }
 
 func TestRecipeMeta_String(t *testing.T) {
@@ -513,7 +516,7 @@ func TestRecipeMeta_String(t *testing.T) {
 		URL                string
 	}
 
-	x := fields{
+	x := RecipeMeta{
 		MetaContext:        Context,
 		MetaType:           "Recipe",
 		Name:               "Test Name",
@@ -534,7 +537,7 @@ func TestRecipeMeta_String(t *testing.T) {
 
 	validmarshalled, _ := json.Marshal(x)
 
-	y := fields{
+	y := RecipeMeta{
 		MetaContext:        Context,
 		MetaType:           "Recipe",
 		Name:               "",
@@ -555,32 +558,35 @@ func TestRecipeMeta_String(t *testing.T) {
 
 	marshalled, _ := json.Marshal(y)
 
-	t.Run("test", func(t *testing.T) {
+	t.Run("Recipe Stringer Test 1", func(t *testing.T) {
 		w := &RecipeMeta{
 			MetaContext:        Context,
 			MetaType:           "Recipe",
-			Name:               "",
-			RecipeCuisine:      "",
-			RecipeCategory:     "",
-			Description:        "",
-			Image:              "",
-			Video:              "",
-			Ingredients:        []string{},
-			RecipeInstructions: []string{},
+			Name:               "Test Name",
+			RecipeCuisine:      "Test RecipeCuisine",
+			RecipeCategory:     "Test RecipeCategory",
+			Description:        "Test Description",
+			Image:              "Test Image",
+			Video:              "Test Video",
+			Ingredients:        []string{"Egg", "Cabagges", "Chilli"},
+			RecipeInstructions: []string{"Beat eggs", "Cut cabagges"},
 			RecipeYield:        "",
-			CookTime:           "",
-			PrepTime:           "",
-			TotalTime:          "",
-			DatePublished:      "",
+			CookTime:           "10 mins",
+			PrepTime:           "10 mins",
+			TotalTime:          "10 mins",
+			DatePublished:      "12/01/2019",
 			URL:                "",
 		}
 		if got, _ := w.String(); got != string(validmarshalled) {
 			t.Errorf("RecipeMeta.String() = %v, want %v", got, string(validmarshalled))
 		}
 
+	})
+
+	t.Run("Recipe Stringer Test 2", func(t *testing.T) {
 		i := &RecipeMeta{
-			MetaContext:        "",
-			MetaType:           "",
+			MetaContext:        Context,
+			MetaType:           "Recipe",
 			Name:               "",
 			RecipeCuisine:      "",
 			RecipeCategory:     "",
@@ -604,27 +610,9 @@ func TestRecipeMeta_String(t *testing.T) {
 }
 
 func TestMovieMeta_String(t *testing.T) {
-	type fields struct {
-		MetaContext     string
-		MetaType        string
-		Name            string
-		URL             string
-		Image           string
-		Trailer         string
-		ContentRating   string
-		AggregateRating string
-		About           string
-		Description     string
-		Comment         string
-		Genre           []string
-		Actor           []Person
-		Author          []Person
-		Director        []Person
-	}
-
 	g := []string{""}
 
-	x := fields{
+	x := MovieMeta{
 		MetaContext:     Context,
 		MetaType:        "Movie",
 		Name:            "This is a test Name",
@@ -644,7 +632,7 @@ func TestMovieMeta_String(t *testing.T) {
 
 	validmarshalled, _ := json.Marshal(x)
 
-	y := fields{
+	y := MovieMeta{
 		MetaContext:     Context,
 		MetaType:        "Movie",
 		Name:            "",
@@ -664,28 +652,31 @@ func TestMovieMeta_String(t *testing.T) {
 
 	marshalled, _ := json.Marshal(y)
 
-	t.Run("test", func(t *testing.T) {
+	t.Run("MovieMeta Stringer Test 1", func(t *testing.T) {
 		w := &MovieMeta{
 			MetaContext:     Context,
 			MetaType:        "Movie",
-			Name:            "",
-			URL:             "",
-			Image:           "",
-			Trailer:         "",
-			ContentRating:   "",
-			AggregateRating: "",
-			About:           "",
-			Description:     "",
-			Comment:         "",
-			Genre:           g,
-			Actor:           []Person{},
-			Author:          []Person{},
-			Director:        []Person{},
+			Name:            "This is a test Name",
+			URL:             "This is a test URL",
+			Image:           "This is a test Image",
+			Trailer:         "This is a test Trailer",
+			ContentRating:   "This is a test ContentRating",
+			AggregateRating: "This is a test AggregateRating",
+			About:           "This is a test About",
+			Description:     "This is a test Description",
+			Comment:         "This is a test Comment",
+			Genre:           []string{"Adventure", "Comedie"},
+			Actor:           []Person{{Name: "Shakti K Helmes"}, {Name: "Leonardo Di Caprice"}},
+			Author:          []Person{{Name: "Lisa Smith"}, {Name: "Eliana Homes"}},
+			Director:        []Person{{Name: "Rahul Kumar"}, {Name: "Sam Blacksmith"}},
 		}
 		if got, _ := w.String(); got != string(validmarshalled) {
 			t.Errorf("MovieMeta.String() = %v, want %v", got, string(validmarshalled))
 		}
 
+	})
+
+	t.Run("MovieMeta Stringer Test 2", func(t *testing.T) {
 		i := &MovieMeta{
 			MetaContext:     Context,
 			MetaType:        "Movie",
@@ -712,20 +703,7 @@ func TestMovieMeta_String(t *testing.T) {
 }
 
 func TestEventMeta_String(t *testing.T) {
-	type fields struct {
-		MetaContext string
-		MetaType    string
-		Name        string
-		StartDate   string
-		EndDate     string
-		Image       string
-		URL         string
-		Organizer   string
-		Description string
-		Location    EventLocation
-	}
-
-	x := fields{
+	x := EventMeta{
 		MetaContext: Context,
 		MetaType:    "Event",
 		Name:        "Test Event",
@@ -762,7 +740,7 @@ func TestEventMeta_String(t *testing.T) {
 
 	validmarshalled, _ := json.Marshal(x)
 
-	y := fields{
+	y := EventMeta{
 		MetaContext: Context,
 		MetaType:    "Event",
 		Name:        "",
@@ -799,7 +777,7 @@ func TestEventMeta_String(t *testing.T) {
 
 	marshalled, _ := json.Marshal(y)
 
-	t.Run("test", func(t *testing.T) {
+	t.Run("EventMeta Stringer Test 1", func(t *testing.T) {
 		w := &EventMeta{
 			MetaContext: Context,
 			MetaType:    "Event",
@@ -838,6 +816,9 @@ func TestEventMeta_String(t *testing.T) {
 			t.Errorf("EventMeta.String() = %v, want %v", got, string(validmarshalled))
 		}
 
+	})
+
+	t.Run("EventMeta Stringer Test 2", func(t *testing.T) {
 		i := &EventMeta{
 			MetaContext: Context,
 			MetaType:    "Event",
@@ -881,17 +862,8 @@ func TestEventMeta_String(t *testing.T) {
 }
 
 func TestWebpageMeta_String(t *testing.T) {
-	type fields struct {
-		MetaContext string `json:"@context"`
-		MetaType    string `json:"@type"`
-		Title       string `json:"title"`
-		URL         string `json:"url"`
-		Description string `json:"description"`
-		Image       string `json:"image"`
-		Keywords    string `json:"keywords"`
-	}
 
-	x := fields{
+	x := WebpageMeta{
 		MetaContext: Context,
 		MetaType:    "WebPage",
 		Title:       "Testing 1",
@@ -903,7 +875,7 @@ func TestWebpageMeta_String(t *testing.T) {
 
 	validmarshalled, _ := json.Marshal(x)
 
-	y := fields{
+	y := WebpageMeta{
 		MetaContext: Context,
 		MetaType:    "WebPage",
 		Title:       "",
@@ -915,7 +887,7 @@ func TestWebpageMeta_String(t *testing.T) {
 
 	marshalled, _ := json.Marshal(y)
 
-	t.Run("test", func(t *testing.T) {
+	t.Run("WepPageMeta Stringer Test 1", func(t *testing.T) {
 		w := &WebpageMeta{
 			MetaContext: Context,
 			MetaType:    "WebPage",
@@ -928,6 +900,10 @@ func TestWebpageMeta_String(t *testing.T) {
 		if got, _ := w.String(); got != string(validmarshalled) {
 			t.Errorf("WebpageMeta.String() = %v, want %v", got, string(validmarshalled))
 		}
+
+	})
+
+	t.Run("WepPageMeta Stringer Test 2", func(t *testing.T) {
 
 		i := &WebpageMeta{
 			MetaContext: Context,
