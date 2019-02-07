@@ -1,32 +1,55 @@
 package schema
 
+import "encoding/json"
+
 // WebSite is a set of related web pages and other items typically served from a single web domain and accessible via URLs.
 type WebSite struct {
 	MetaContext string       `json:"@context"`
 	MetaType    string       `json:"@type"`
+	Name        string       `json:"name"`
 	URL         string       `json:"url"`
-	Issn        string       `json:"issn"`
-	Creator     Organization `json:"creator"`
-	InLanguage  string       `json:"inLanguage"`
-	Keywords    string       `json:"keywords"`
-	License     License      `json:"license"`
-	Award       string       `json:"award"`
-	Audience    Audience     `json:"audience"`
+	Issn        string       `json:"issn,omitempty"`
+	Creator     Organization `json:"creator,omitempty"`
+	InLanguage  string       `json:"inLanguage,omitempty"`
+	Keywords    string       `json:"keywords,omitempty"`
+	License     License      `json:"license,omitempty"`
+	Audience    Audience     `json:"audience,omitempty"`
 }
 
 //License is a subset of CreativeWork
 type License struct {
-	Type            string        `json:"@type"`
-	Context         string        `json:"@context"`
-	CopyrightHolder OwnershipInfo `json:"copyrightHolder"`
-	CopyrightYear   int           `json:"copyrightYear"`
+	MetaType        string        `json:"@type"`
+	CopyrightHolder OwnershipInfo `json:"copyrightHolder,omitempty"`
+	CopyrightYear   int           `json:"copyrightYear,omitempty"`
 }
 
 //OwnershipInfo is a structured value providing information about when a certain organization or person owned a certain product.
 type OwnershipInfo struct {
-	Type               string       `json:"@type"`
-	TypeOfGood         string       `json:"typeOfGood"`
-	OwnedFrom          string       `json:"ownedFrom"`
-	AcquiredFromOrg    Organization `json:"acquiredFromOrg"`
-	AcquiredFromPerson Person       `json:"acquiredFromPerson"`
+	MetaType           string       `json:"@type"`
+	TypeOfGood         string       `json:"typeOfGood,omitempty"`
+	OwnedFrom          string       `json:"ownedFrom,omitempty"`
+	AcquiredFromOrg    Organization `json:"acquiredFromOrg,omitempty"`
+	AcquiredFromPerson Person       `json:"acquiredFromPerson,omitempty"`
+}
+
+//NewWebSite returns a new instance of WebSite
+func NewWebSite(name, url, issn, inLanguage, keywords string) WebSite {
+	return WebSite{
+		MetaContext: context,
+		MetaType:    "WebSite",
+		Name:        name,
+		URL:         url,
+		Issn:        issn,
+		InLanguage:  inLanguage,
+	}
+}
+
+//SetOrganization is a helper function
+func (ws *WebPage) SetOrganization() {
+
+}
+
+func (ws *WebSite) String() (string, error) {
+	b, err := json.Marshal(ws)
+	return string(b), err
 }

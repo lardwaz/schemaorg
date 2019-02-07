@@ -1,36 +1,42 @@
 package schema
 
+import (
+	"encoding/json"
+	"strings"
+)
+
 //Movie is a cinema film
 type Movie struct {
-	MetaContext       string       `json:"MetaContext"`
-	MetaType          string       `json:"@type"`
-	Actor             string       `json:"actor"`
-	AggregateRating   string       `json:"aggregateRating"`
-	Author            string       `json:"author"`
-	Director          string       `json:"director"`
-	Description       string       `json:"description"`
-	ContentRating     string       `json:"contentRating"`
-	Comment           string       `json:"comment"`
-	Duration          string       `json:"duration"`
-	Image             string       `json:"image"`
-	MusicByMusicGroup MusicGroup   `json:"musicByMusicGroup"`
-	MusicByIndividual Person       `json:"musicByIndividual"`
-	Name              string       `json:"name"`
-	ProductionCompany Organization `json:"productionCompany"`
-	SubtitleLanguage  string       `json:"subtitleLanguage"`
-	Trailer           VideoObject  `json:"trailer"`
+	MetaContext      string      `json:"MetaContext"`
+	MetaType         string      `json:"@type"`
+	Actor            string      `json:"actor"`
+	AggregateRating  string      `json:"aggregateRating,omitempty"`
+	Author           string      `json:"author,omitempty"`
+	Director         string      `json:"director"`
+	Description      string      `json:"description"`
+	ContentRating    string      `json:"contentRating,omitempty"`
+	Comment          string      `json:"comment,omitempty"`
+	Duration         string      `json:"duration,omitempty"`
+	Image            string      `json:"image"`
+	Name             string      `json:"name"`
+	SubtitleLanguage string      `json:"subtitleLanguage,omitempty"`
+	Trailer          VideoObject `json:"trailer,omitempty"`
 }
 
-//MusicGroup A musical group, such as a band, an orchestra, or a choir. Can also be a solo musician.
-type MusicGroup struct {
-	MetaType string     `json:"@type"`
-	Album    MusicAlbum `json:"album"`
-	Genre    string     `json:"genre"`
+//NewMovie returns a new instance of Movie with compulsory attributes set
+func NewMovie(name, description, image string, director, actor []string) Movie {
+	return Movie{
+		MetaContext: context,
+		MetaType:    "Movie",
+		Name:        name,
+		Description: description,
+		Image:       image,
+		Director:    strings.Join(director, ","),
+		Actor:       strings.Join(actor, ","),
+	}
 }
 
-//MusicAlbum is a collection of music tracks.
-type MusicAlbum struct {
-	MetaType string `json:"@type"`
-	Duration string `json:"duration"`
-	IsrcCode string `json:"isrcCode"`
+func (m *Movie) String() (string, error) {
+	b, err := json.Marshal(m)
+	return string(b), err
 }
