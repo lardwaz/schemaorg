@@ -1,7 +1,6 @@
-package schemaorg
+package schemaorg_test
 
 import (
-	"devops/gocipe/schemaorg/schema"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -10,10 +9,12 @@ import (
 	"text/template"
 
 	"github.com/gorilla/mux"
+	schemaorg "github.com/lsldigital/gocipe-schemaorg"
+	"github.com/lsldigital/gocipe-schemaorg/schema"
 	"github.com/stretchr/testify/assert"
 )
 
-var MockOgraph = NewOgParams("This is title", "http://localhost:8888/a", "This is a description", "https://via.placeholder.com/450/0000FF/808080%20?Text=Digital.com%20C/O%20https://placeholder.com/", "test, food")
+var MockOgraph = schemaorg.NewOgParams("This is title", "http://localhost:8888/a", "This is a description", "https://via.placeholder.com/450/0000FF/808080%20?Text=Digital.com%20C/O%20https://placeholder.com/", "test, food")
 var MockBaseURL = "http://localhost:8888/a"
 
 var MockOgraphMovie = MockMovieOg()
@@ -28,16 +29,16 @@ func MockEndPointDynamic() http.HandlerFunc {
 	tmpl := template.New("Test")
 	tmpl, _ = tmpl.Parse("OG: {{.OG}} , baseurl: {{.BaseURL}}, schema: {{.SchemaJSONld}}")
 
-	og := NewOgParams(MockOgraphMovie.Name, MockOgraphMovie.URL, MockOgraphMovie.Description, MockOgraphMovie.Image, "")
+	og := schemaorg.NewOgParams(MockOgraphMovie.Name, MockOgraphMovie.URL, MockOgraphMovie.Description, MockOgraphMovie.Image, "")
 
-	return DynamicHandler(tmpl, MockBaseURL, og, MockOgraphMovie)
+	return schemaorg.DynamicHandler(tmpl, MockBaseURL, og, MockOgraphMovie)
 }
 
 func MockEndPointFunc() http.HandlerFunc {
 	tmpl := template.New("Test")
 	tmpl, _ = tmpl.Parse("OG: {{.OG}} , baseurl: {{.BaseURL}}")
 
-	return Handler(tmpl, MockOgraph, MockBaseURL)
+	return schemaorg.Handler(tmpl, MockOgraph, MockBaseURL)
 }
 
 func MockRouter() *mux.Router {

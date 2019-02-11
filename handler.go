@@ -1,10 +1,11 @@
 package schemaorg
 
 import (
-	"devops/gocipe/schemaorg/schema"
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/lsldigital/gocipe-schemaorg/schema"
 
 	log "github.com/sirupsen/logrus"
 )
