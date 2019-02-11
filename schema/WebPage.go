@@ -18,11 +18,12 @@ type WebPage struct {
 }
 
 //NewWebPage is a new instance of webpage
-func NewWebPage(name, url, image, keywords string) WebPage {
+func NewWebPage(name, desc, url, image, keywords string) WebPage {
 	return WebPage{
 		MetaContext: context,
 		MetaType:    "WebPage",
 		Name:        name,
+		Description: desc,
 		URL:         url,
 		Image:       image,
 		Keywords:    keywords,

@@ -14,7 +14,7 @@ func TestWebPage_String(t *testing.T) {
 		Speakable   SpeakableSpecification
 	}
 
-	case1 := NewWebPage("GeoCoordinates", "https://schema.org/GeoCoordinates", "https://www.worldatlas.com/r/w728-h425-c728x425/upload/83/db/8f/geography.jpg", "Geography, Countries, Coordinates")
+	case1 := NewWebPage("GeoCoordinates", "GeoCoordinates is about the long and lat of a point in the map", "https://schema.org/GeoCoordinates", "https://www.worldatlas.com/r/w728-h425-c728x425/upload/83/db/8f/geography.jpg", "Geography, Countries, Coordinates")
 
 	case2 := WebPage{
 		MetaType:    MetaWebPage,
@@ -37,6 +37,7 @@ func TestWebPage_String(t *testing.T) {
 				MetaType:    MetaWebPage,
 				MetaContext: context,
 				Name:        "GeoCoordinates",
+				Description: "GeoCoordinates is about the long and lat of a point in the map",
 				Keywords:    "Geography, Countries, Coordinates",
 				Image:       "https://www.worldatlas.com/r/w728-h425-c728x425/upload/83/db/8f/geography.jpg",
 				URL:         "https://schema.org/GeoCoordinates",
