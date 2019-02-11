@@ -2,6 +2,9 @@ package schema
 
 import "encoding/json"
 
+//MetaForLocation is the metatype tag for Place
+const MetaForLocation string = "Place"
+
 //Event is: an event happening at a certain time and location, such as a concert, lecture, or festival.
 // type Event struct {
 // 	MetaContext               string          `json:"MetaContext,omitempty"`
@@ -52,12 +55,6 @@ type Event struct {
 	Location    EventLocation `json:"location,omitempty"`
 }
 
-//EventAddress from schema org
-type EventAddress struct {
-	MetaType      string `json:"@type"`
-	StreetAddress string `json:"streetAddress"`
-}
-
 //EventLocation (custom) from schema org
 type EventLocation struct {
 	MetaType    string         `json:"@type"`
@@ -66,7 +63,7 @@ type EventLocation struct {
 	Telephone   string         `json:"telephone"`
 	URL         string         `json:"url"`
 	Image       string         `json:"image"`
-	Address     EventAddress   `json:"address"`
+	Address     string         `json:"address"`
 	Geoloc      GeoCoordinates `json:"geo,omitempty"`
 	HasMap      Map            `json:"hasMap,omitempty"`
 }
@@ -82,12 +79,12 @@ func NewEvent(name, image, url, address, phone string) Event {
 		MetaContext: context,
 		MetaType:    "Event",
 		Name:        name,
+		Image:       image,
 		URL:         url,
 		Location: EventLocation{
+			MetaType:  MetaForLocation,
 			Telephone: phone,
-			Address: EventAddress{
-				StreetAddress: address,
-			},
+			Address:   address,
 		},
 	}
 }

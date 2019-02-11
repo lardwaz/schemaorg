@@ -2,6 +2,15 @@ package schema
 
 import "encoding/json"
 
+//MetaWebSite holds the value of Meta type of Website
+const MetaWebSite string = "WebSite"
+
+//MetaLicense holds value of meta type of License
+const MetaLicense string = "License"
+
+//MetaOwnershipInfo hold meta type information
+const MetaOwnershipInfo string = "OwnershipInfo"
+
 // WebSite is a set of related web pages and other items typically served from a single web domain and accessible via URLs.
 type WebSite struct {
 	MetaContext string       `json:"@context"`
@@ -33,20 +42,15 @@ type OwnershipInfo struct {
 }
 
 //NewWebSite returns a new instance of WebSite
-func NewWebSite(name, url, issn, inLanguage, keywords string) WebSite {
+func NewWebSite(name, url, inLanguage, keywords string) WebSite {
 	return WebSite{
 		MetaContext: context,
-		MetaType:    "WebSite",
+		MetaType:    MetaWebSite,
 		Name:        name,
 		URL:         url,
-		Issn:        issn,
 		InLanguage:  inLanguage,
+		Keywords:    keywords,
 	}
-}
-
-//SetOrganization is a helper function
-func (ws *WebPage) SetOrganization() {
-
 }
 
 func (ws WebSite) String() string {

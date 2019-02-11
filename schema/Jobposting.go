@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 )
 
+const MetaMonetaryAmount = "MonetaryAmount"
+
 //JobPosting is a listing that describes a job opening in a certain organization.
 type JobPosting struct {
 	MetaContext            string         `json:"MetaContext"`

@@ -2,6 +2,57 @@ package schema
 
 const context = "http://schema.org"
 
+//MetaTypeForGeo is the metatype tag for GeoCoordinates
+const MetaTypeForGeo string = "GeoCoordinates"
+
+//MetaOrganization holds the value for Organization
+const MetaOrganization string = "Organization"
+
+//MetaPlace holds the value for Place (location)
+const MetaPlace string = "Place"
+
+//MetaPerson holds meta type value
+const MetaPerson string = "Person"
+
+//MetaThing holds meta type value
+const MetaThing string = "Thing"
+
+//MetaContactPoint holds meta type value
+const MetaContactPoint string = "ContactPoint"
+
+//MetaOpeningHoursSpecification holds meta type value
+const MetaOpeningHoursSpecification string = "OpeningHoursSpecification"
+
+//MetaAudience holds meta type value
+const MetaAudience string = "Audience"
+
+//MetaAdministrativeArea holds meta type value
+const MetaAdministrativeArea string = "AdministrativeArea"
+
+//MetaGeoCoordinates holds meta type value
+const MetaGeoCoordinates string = "GeoCoordinates"
+
+//MetaPostalAddress holds meta type value
+const MetaPostalAddress string = "PostalAddress"
+
+//MetaDateTime holds meta type value
+const MetaDateTime string = "DateTime"
+
+//MetaVideoObject holds meta type value
+const MetaVideoObject string = "VideoObject"
+
+//MetaMap holds meta type value
+const MetaMap string = "Map"
+
+//MetaReview holds meta type value
+const MetaReview string = "Review"
+
+//MetaRating holds meta type value
+const MetaRating string = "Rating"
+
+//MetaAggregateRating holds meta type value
+const MetaAggregateRating string = "AggregateRating"
+
 //Organization such as a school, NGO, corporation, club, etc.
 type Organization struct {
 	MetaType     string       `json:"@type"`

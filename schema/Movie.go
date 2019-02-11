@@ -34,8 +34,8 @@ func NewMovie(name, description, url, image string, director, actor []string) Mo
 		Description: description,
 		Image:       image,
 		URL:         url,
-		Director:    strings.Join(director, ","),
-		Actor:       strings.Join(actor, ","),
+		Director:    strings.Join(director, ", "),
+		Actor:       strings.Join(actor, ", "),
 	}
 }
 

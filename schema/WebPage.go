@@ -2,6 +2,9 @@ package schema
 
 import "encoding/json"
 
+//MetaWebPage holds meta type value
+const MetaWebPage string = "WebPage"
+
 //WebPage is a web page
 type WebPage struct {
 	MetaType    string                 `json:"@type"`
@@ -15,19 +18,14 @@ type WebPage struct {
 }
 
 //NewWebPage is a new instance of webpage
-func NewWebPage(name, url, description, image, keywords string, cssSelector, xpath []string) WebPage {
+func NewWebPage(name, url, image, keywords string) WebPage {
 	return WebPage{
-		MetaContext: "Context",
+		MetaContext: context,
 		MetaType:    "WebPage",
 		Name:        name,
 		URL:         url,
-		Description: description,
 		Image:       image,
 		Keywords:    keywords,
-		Speakable: SpeakableSpecification{
-			CSSSelector: cssSelector,
-			Xpath:       xpath,
-		},
 	}
 }
 

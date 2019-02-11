@@ -69,9 +69,11 @@ type MediaObject struct {
 //NewBlog returns a new instance of Blog with compulsory inputs
 func NewBlog(title, url, image, summary string) Blog {
 	return Blog{
-		Name:  title,
-		URL:   url,
-		Image: image,
+		MetaContext: context,
+		MetaType:    "Blog",
+		Name:        title,
+		URL:         url,
+		Image:       image,
 		BlogPost: BlogPosting{
 			Backstory: summary,
 		},

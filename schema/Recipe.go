@@ -2,6 +2,12 @@ package schema
 
 import "encoding/json"
 
+//MetaNutritionInformation holds value of meta data for NutritionInformation
+const MetaNutritionInformation string = "NutritionInformation"
+
+//MetaRecipe holds value of meta data for Recipe
+const MetaRecipe string = "Recipe"
+
 //Recipe is a set of instructions for preparing a particular dish, including a list of the ingredients required.
 type Recipe struct {
 	MetaContext        string               `json:"@context"`
@@ -44,8 +50,9 @@ type NutritionInformation struct {
 func NewRecipe(name, image, url string, ingredients, recipeInstructions []string) Recipe {
 	return Recipe{
 		MetaContext:        context,
-		MetaType:           "Recipe",
+		MetaType:           MetaRecipe,
 		Name:               name,
+		Image:              image,
 		URL:                url,
 		Ingredients:        ingredients,
 		RecipeInstructions: recipeInstructions,
