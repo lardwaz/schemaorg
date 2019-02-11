@@ -52,7 +52,7 @@ func NewRecipe(name, image, url string, ingredients, recipeInstructions []string
 	}
 }
 
-func (r *Recipe) String() string {
+func (r Recipe) String() string {
 	b, _ := json.Marshal(r)
 	return string(b)
 }

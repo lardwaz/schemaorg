@@ -31,7 +31,7 @@ func NewWebPage(name, url, description, image, keywords string, cssSelector, xpa
 	}
 }
 
-func (wp *WebPage) String() string {
+func (wp WebPage) String() string {
 	b, _ := json.Marshal(wp)
 	return string(b)
 }

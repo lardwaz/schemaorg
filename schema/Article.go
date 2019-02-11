@@ -59,7 +59,7 @@ func NewArticle(headline, summary, authorFirstName, authorFamilyName, url, image
 	}
 }
 
-func (a *Article) String() string {
+func (a Article) String() string {
 	b, _ := json.Marshal(a)
 	return string(b)
 }

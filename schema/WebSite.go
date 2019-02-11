@@ -49,7 +49,7 @@ func (ws *WebPage) SetOrganization() {
 
 }
 
-func (ws *WebSite) String() string {
+func (ws WebSite) String() string {
 	b, _ := json.Marshal(ws)
 	return string(b)
 }
