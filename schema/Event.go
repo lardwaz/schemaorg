@@ -71,9 +71,9 @@ type EventLocation struct {
 	HasMap      Map            `json:"hasMap,omitempty"`
 }
 
-func (e *Event) String() (string, error) {
-	b, err := json.Marshal(e)
-	return string(b), err
+func (e *Event) String() string {
+	b, _ := json.Marshal(e)
+	return string(b)
 }
 
 //NewEvent returns a new instance of Event

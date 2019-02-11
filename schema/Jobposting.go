@@ -69,7 +69,7 @@ func NewJobPosting(datePosted, employmentType, title, jobLocation string) JobPos
 	}
 }
 
-func (jp *JobPosting) String() (string, error) {
-	b, err := json.Marshal(jp)
-	return string(b), err
+func (jp *JobPosting) String() string {
+	b, _ := json.Marshal(jp)
+	return string(b)
 }

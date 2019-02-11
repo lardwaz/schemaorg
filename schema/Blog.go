@@ -78,7 +78,7 @@ func NewBlog(title, url, image, summary string) Blog {
 	}
 }
 
-func (bg *Blog) String() (string, error) {
-	b, err := json.Marshal(bg)
-	return string(b), err
+func (bg *Blog) String() string {
+	b, _ := json.Marshal(bg)
+	return string(b)
 }
