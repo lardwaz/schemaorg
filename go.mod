@@ -1,4 +1,4 @@
-module devops/gocipe/schemaorg
+module github.com/lsldigital/gocipe-schemaorg
 
 require (
 	github.com/gorilla/mux v1.7.0
