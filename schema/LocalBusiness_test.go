@@ -1,19 +1,21 @@
-package schema
+package schema_test
 
 import (
 	"strings"
 	"testing"
+
+	"github.com/gocipe/schemaorg/schema"
 )
 
 func TestLocalBusiness_String(t *testing.T) {
 	type fields struct {
 		MetaContext        string
 		MetaType           string
-		Address            PostalAddress
+		Address            schema.PostalAddress
 		CurrenciesAccepted string
 		Description        string
 		FaxNumber          string
-		Founder            Person
+		Founder            schema.Person
 		FoundingDate       string
 		Image              string
 		OpeningHours       string
@@ -32,17 +34,22 @@ func TestLocalBusiness_String(t *testing.T) {
 		"Fr-Sa 17:00-22:00",
 	}
 
-	case1 := NewLocalBusiness("ABCD Alpha Ltd", "https://pixabay.com/en/urban-people-crowd-citizens-438393/",
+	case1 := schema.NewLocalBusiness("ABCD Alpha Ltd", "https://pixabay.com/en/urban-people-crowd-citizens-438393/",
 		"http://localhost:8080/localbusiness/", "27 Ketch Harbour Street", "Mexico Beach", "(230) 499-9999", openingHrs)
 
-	case2 := LocalBusiness{
-		MetaContext:        context,
-		MetaType:           MetaLocalBusiness,
-		Address:            PostalAddress{},
+	case2 := schema.LocalBusiness{
+		MetaContext: schema.MetaContext,
+		MetaType:    schema.MetaLocalBusiness,
+		Address: schema.PostalAddress{
+			MetaType:      schema.MetaPostalAddress,
+			StreetAddress: "127 Pamplemousses Street, Pamplemousse",
+			AddressRegion: "Pamplemouse Garden",
+		},
 		CurrenciesAccepted: "USD, MUR, INR",
 		Description:        "We specialise in dealing with fruits",
 		FaxNumber:          "499-8989",
-		Founder: Person{
+		Founder: schema.Person{
+			MetaType:   schema.MetaPerson,
 			GivenName:  "James",
 			FamilyName: "Smith",
 		},
@@ -64,13 +71,13 @@ func TestLocalBusiness_String(t *testing.T) {
 		{
 			name: "Test Case 1",
 			fields: fields{
-				MetaContext: context,
-				MetaType:    MetaLocalBusiness,
+				MetaContext: schema.MetaContext,
+				MetaType:    schema.MetaLocalBusiness,
 				Name:        "ABCD Alpha Ltd",
 				Image:       "https://pixabay.com/en/urban-people-crowd-citizens-438393/",
 				URL:         "http://localhost:8080/localbusiness/",
-				Address: PostalAddress{
-					MetaType:        MetaPostalAddress,
+				Address: schema.PostalAddress{
+					MetaType:        schema.MetaPostalAddress,
 					AddressLocality: "Mexico Beach",
 					StreetAddress:   "27 Ketch Harbour Street",
 				},
@@ -82,13 +89,18 @@ func TestLocalBusiness_String(t *testing.T) {
 		{
 			name: "Test Case 2",
 			fields: fields{
-				MetaContext:        context,
-				MetaType:           MetaLocalBusiness,
-				Address:            PostalAddress{},
+				MetaContext: schema.MetaContext,
+				MetaType:    schema.MetaLocalBusiness,
+				Address: schema.PostalAddress{
+					MetaType:      schema.MetaPostalAddress,
+					StreetAddress: "127 Pamplemousses Street, Pamplemousse",
+					AddressRegion: "Pamplemouse Garden",
+				},
 				CurrenciesAccepted: "USD, MUR, INR",
 				Description:        "We specialise in dealing with fruits",
 				FaxNumber:          "499-8989",
-				Founder: Person{
+				Founder: schema.Person{
+					MetaType:   schema.MetaPerson,
 					GivenName:  "James",
 					FamilyName: "Smith",
 				},
@@ -106,7 +118,7 @@ func TestLocalBusiness_String(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			lb := LocalBusiness{
+			lb := schema.LocalBusiness{
 				MetaContext:        tt.fields.MetaContext,
 				MetaType:           tt.fields.MetaType,
 				Address:            tt.fields.Address,

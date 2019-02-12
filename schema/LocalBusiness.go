@@ -32,7 +32,7 @@ type LocalBusiness struct {
 //NewLocalBusiness returns a new instance of LocalBusiness
 func NewLocalBusiness(name, image, url, streetaddress, locality, phone string, openinghours []string) LocalBusiness {
 	return LocalBusiness{
-		MetaContext: context,
+		MetaContext: MetaContext,
 		MetaType:    MetaLocalBusiness,
 		Name:        name,
 		Image:       image,

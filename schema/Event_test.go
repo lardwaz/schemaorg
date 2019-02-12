@@ -1,6 +1,10 @@
-package schema
+package schema_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/gocipe/schemaorg/schema"
+)
 
 func TestEvent_String(t *testing.T) {
 	type fields struct {
@@ -13,12 +17,12 @@ func TestEvent_String(t *testing.T) {
 		URL         string
 		Organizer   string
 		Description string
-		Location    EventLocation
+		Location    schema.EventLocation
 	}
 
-	case1 := Event{
-		MetaContext: context,
-		MetaType:    "Event",
+	case1 := schema.Event{
+		MetaContext: schema.MetaContext,
+		MetaType:    schema.MetaEvent,
 		Name:        "Tuesday Sushi",
 		StartDate:   "Janvier 29 (Mardi) 11:00 Am",
 		EndDate:     "",
@@ -26,15 +30,15 @@ func TestEvent_String(t *testing.T) {
 		URL:         "https://koze.mu/events/tuesday-sushi/",
 		Organizer:   "Koze.mu",
 		Description: "Embark on a culinary trip with sushi, sashimi, maki, temaki and our specialties, along with the indispensable wasabi and soy sauce, as your companions for any tasty Tuesday journey.",
-		Location: EventLocation{
-			MetaType:  MetaForLocation,
+		Location: schema.EventLocation{
+			MetaType:  schema.MetaForLocation,
 			Name:      "The Address Boutique Hotel",
 			Telephone: "405 30 00",
 			Address:   "The Address Boutique Hotel, Port Chambly, Balaclava",
 		},
 	}
 
-	case2 := NewEvent("Le Market", "https://i1.wp.com/koze.mu/wp-content/uploads/2019/01/41408192_1204721073002153_3691893886948474880_o.jpg", "https://koze.mu/events/le-market/", "Mont Choisy Le Mall, Mont Choisy, 742CU001, Grand Baie, Riviere Du Rempart, Mauritius", "57 33 95 57")
+	case2 := schema.NewEvent("Le Market", "https://i1.wp.com/koze.mu/wp-content/uploads/2019/01/41408192_1204721073002153_3691893886948474880_o.jpg", "https://koze.mu/events/le-market/", "Mont Choisy Le Mall, Mont Choisy, 742CU001, Grand Baie, Riviere Du Rempart, Mauritius", "57 33 95 57")
 
 	tests := []struct {
 		name   string
@@ -44,8 +48,8 @@ func TestEvent_String(t *testing.T) {
 		{
 			name: "Test Case 1",
 			fields: fields{
-				MetaContext: context,
-				MetaType:    "Event",
+				MetaContext: schema.MetaContext,
+				MetaType:    schema.MetaEvent,
 				Name:        "Tuesday Sushi",
 				StartDate:   "Janvier 29 (Mardi) 11:00 Am",
 				EndDate:     "",
@@ -53,8 +57,8 @@ func TestEvent_String(t *testing.T) {
 				URL:         "https://koze.mu/events/tuesday-sushi/",
 				Organizer:   "Koze.mu",
 				Description: "Embark on a culinary trip with sushi, sashimi, maki, temaki and our specialties, along with the indispensable wasabi and soy sauce, as your companions for any tasty Tuesday journey.",
-				Location: EventLocation{
-					MetaType:  MetaForLocation,
+				Location: schema.EventLocation{
+					MetaType:  schema.MetaForLocation,
 					Name:      "The Address Boutique Hotel",
 					Telephone: "405 30 00",
 					Address:   "The Address Boutique Hotel, Port Chambly, Balaclava",
@@ -65,13 +69,13 @@ func TestEvent_String(t *testing.T) {
 		{
 			name: "Test Case 2",
 			fields: fields{
-				MetaContext: context,
-				MetaType:    "Event",
+				MetaContext: schema.MetaContext,
+				MetaType:    schema.MetaEvent,
 				Name:        "Le Market",
 				Image:       "https://i1.wp.com/koze.mu/wp-content/uploads/2019/01/41408192_1204721073002153_3691893886948474880_o.jpg",
 				URL:         "https://koze.mu/events/le-market/",
-				Location: EventLocation{
-					MetaType:  MetaForLocation,
+				Location: schema.EventLocation{
+					MetaType:  schema.MetaForLocation,
 					Telephone: "57 33 95 57",
 					Address:   "Mont Choisy Le Mall, Mont Choisy, 742CU001, Grand Baie, Riviere Du Rempart, Mauritius",
 				},
@@ -81,7 +85,7 @@ func TestEvent_String(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			e := Event{
+			e := schema.Event{
 				MetaContext: tt.fields.MetaContext,
 				MetaType:    tt.fields.MetaType,
 				Name:        tt.fields.Name,

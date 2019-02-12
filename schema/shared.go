@@ -1,6 +1,7 @@
 package schema
 
-const context = "http://schema.org"
+//MetaContext is schema org url
+const MetaContext string = "http://schema.org"
 
 //MetaTypeForGeo is the metatype tag for GeoCoordinates
 const MetaTypeForGeo string = "GeoCoordinates"

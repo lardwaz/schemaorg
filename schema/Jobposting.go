@@ -4,7 +4,14 @@ import (
 	"encoding/json"
 )
 
+//MetaMonetaryAmount holds metatype value for this schema
 const MetaMonetaryAmount = "MonetaryAmount"
+
+//MetaJobPosting holds metatype value for this schema
+const MetaJobPosting = "JobPosting"
+
+//MetaOccupation holds metatype value for this schema
+const MetaOccupation = "Occupation"
 
 //JobPosting is a listing that describes a job opening in a certain organization.
 type JobPosting struct {
@@ -60,13 +67,14 @@ type MonetaryAmount struct {
 //NewJobPosting returns a new instance of JobPosting with compulsory attributes set
 func NewJobPosting(datePosted, employmentType, title, jobLocation string) JobPosting {
 	return JobPosting{
-		MetaContext:    context,
-		MetaType:       "JobPosting",
+		MetaContext:    MetaContext,
+		MetaType:       MetaJobPosting,
 		DatePosted:     datePosted,
 		EmploymentType: employmentType,
 		Title:          title,
 		JobLocation: Place{
-			Address: jobLocation,
+			MetaType: MetaPlace,
+			Address:  jobLocation,
 		},
 	}
 }

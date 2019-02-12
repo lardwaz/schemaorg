@@ -1,8 +1,10 @@
-package schema
+package schema_test
 
 import (
 	"strings"
 	"testing"
+
+	"github.com/gocipe/schemaorg/schema"
 )
 
 func TestMovie_String(t *testing.T) {
@@ -22,17 +24,17 @@ func TestMovie_String(t *testing.T) {
 		SubtitleLanguage string
 		URL              string
 		Genre            string
-		Trailer          VideoObject
+		Trailer          schema.VideoObject
 	}
 
 	directors := []string{"Kevin Donovan"}
 	actors := []string{"Jackie Chan", "Christophe Beck", "‎John Debney"}
 
-	case1 := NewMovie("The Tuxedo", "Cabbie-turned-chauffeur Jimmy Tong (Jackie Chan) learns there is really only one rule.", "https://en.wikipedia.org/wiki/The_Tuxedo", "http://www.gstatic.com/tv/thumb/v22vodart/29966/p29966_v_v8_aa.jpg", directors, actors)
+	case1 := schema.NewMovie("The Tuxedo", "Cabbie-turned-chauffeur Jimmy Tong (Jackie Chan) learns there is really only one rule.", "https://en.wikipedia.org/wiki/The_Tuxedo", "http://www.gstatic.com/tv/thumb/v22vodart/29966/p29966_v_v8_aa.jpg", directors, actors)
 
-	case2 := Movie{
-		MetaContext:      context,
-		MetaType:         "Movie",
+	case2 := schema.Movie{
+		MetaContext:      schema.MetaContext,
+		MetaType:         schema.MetaMovie,
 		Actor:            "Kristen Bell, Jonathan Groff, Idina Menzel",
 		Director:         "Jennifer Lee, Chris Buck",
 		Description:      "When their kingdom becomes trapped in perpetual winter, fearless Anna (Kristen Bell) joins forces with mountaineer Kristoff.",
@@ -52,8 +54,8 @@ func TestMovie_String(t *testing.T) {
 		{
 			name: "Test Case 1",
 			fields: fields{
-				MetaContext: context,
-				MetaType:    "Movie",
+				MetaContext: schema.MetaContext,
+				MetaType:    schema.MetaMovie,
 				Name:        "The Tuxedo",
 				Description: "Cabbie-turned-chauffeur Jimmy Tong (Jackie Chan) learns there is really only one rule.",
 				Image:       "http://www.gstatic.com/tv/thumb/v22vodart/29966/p29966_v_v8_aa.jpg",
@@ -66,8 +68,8 @@ func TestMovie_String(t *testing.T) {
 		{
 			name: "Test Case 2",
 			fields: fields{
-				MetaContext:      context,
-				MetaType:         "Movie",
+				MetaContext:      schema.MetaContext,
+				MetaType:         schema.MetaMovie,
 				Actor:            "Kristen Bell, Jonathan Groff, Idina Menzel",
 				Director:         "Jennifer Lee, Chris Buck",
 				Description:      "When their kingdom becomes trapped in perpetual winter, fearless Anna (Kristen Bell) joins forces with mountaineer Kristoff.",
@@ -83,7 +85,7 @@ func TestMovie_String(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			m := Movie{
+			m := schema.Movie{
 				MetaContext:      tt.fields.MetaContext,
 				MetaType:         tt.fields.MetaType,
 				Actor:            tt.fields.Actor,

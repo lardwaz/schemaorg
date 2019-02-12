@@ -5,6 +5,9 @@ import "encoding/json"
 //MetaForLocation is the metatype tag for Place
 const MetaForLocation string = "Place"
 
+//MetaEvent is the metatype tag for Event
+const MetaEvent string = "Event"
+
 //Event is: an event happening at a certain time and location, such as a concert, lecture, or festival.
 // type Event struct {
 // 	MetaContext               string          `json:"MetaContext,omitempty"`
@@ -76,8 +79,8 @@ func (e Event) String() string {
 //NewEvent returns a new instance of Event
 func NewEvent(name, image, url, address, phone string) Event {
 	return Event{
-		MetaContext: context,
-		MetaType:    "Event",
+		MetaContext: MetaContext,
+		MetaType:    MetaEvent,
 		Name:        name,
 		Image:       image,
 		URL:         url,

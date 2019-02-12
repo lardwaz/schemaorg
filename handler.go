@@ -5,7 +5,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/lsldigital/gocipe-schemaorg/schema"
+	"github.com/gocipe/schemaorg/schema"
 
 	log "github.com/sirupsen/logrus"
 )

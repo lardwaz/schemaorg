@@ -1,6 +1,10 @@
-package schema
+package schema_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/gocipe/schemaorg/schema"
+)
 
 func TestRecipe_String(t *testing.T) {
 	type fields struct {
@@ -15,7 +19,7 @@ func TestRecipe_String(t *testing.T) {
 		Ingredients        []string
 		RecipeInstructions []string
 		RecipeYield        string
-		Nutrition          NutritionInformation
+		Nutrition          schema.NutritionInformation
 		CookTime           string
 		PrepTime           string
 		TotalTime          string
@@ -36,12 +40,12 @@ func TestRecipe_String(t *testing.T) {
 		"CONTINUE cooking – pulling, lifting and folding eggs – until thickened and no visible liquid egg remains. Do not stir constantly. REMOVE from heat. SERVE immediately.",
 	}
 
-	case1 := NewRecipe("Scrambled eggs", "https://x9wsr1khhgk5pxnq1f1r8kye-wpengine.netdna-ssl.com/wp-content/uploads/Scrambled-with-Milk-930x620.jpg",
+	case1 := schema.NewRecipe("Scrambled eggs", "https://x9wsr1khhgk5pxnq1f1r8kye-wpengine.netdna-ssl.com/wp-content/uploads/Scrambled-with-Milk-930x620.jpg",
 		"https://www.incredibleegg.org/recipe/basic-scrambled-eggs/", ingredients, recipeInstructions)
 
-	case2 := Recipe{
-		MetaContext:        context,
-		MetaType:           "Recipe",
+	case2 := schema.Recipe{
+		MetaContext:        schema.MetaContext,
+		MetaType:           schema.MetaRecipe,
 		Name:               "Basic Scrambled Eggs Recipe",
 		RecipeCuisine:      "English",
 		RecipeCategory:     "Breakfast",
@@ -50,8 +54,8 @@ func TestRecipe_String(t *testing.T) {
 		Ingredients:        ingredients,
 		RecipeInstructions: recipeInstructions,
 		RecipeYield:        "2 servings",
-		Nutrition: NutritionInformation{
-			MetaType:           MetaNutritionInformation,
+		Nutrition: schema.NutritionInformation{
+			MetaType:           schema.MetaNutritionInformation,
 			Calories:           "320 calories",
 			CholesterolContent: "3%",
 		},
@@ -70,8 +74,8 @@ func TestRecipe_String(t *testing.T) {
 		{
 			name: "Test Case 1",
 			fields: fields{
-				MetaContext:        context,
-				MetaType:           "Recipe",
+				MetaContext:        schema.MetaContext,
+				MetaType:           schema.MetaRecipe,
 				Name:               "Scrambled eggs",
 				Image:              "https://x9wsr1khhgk5pxnq1f1r8kye-wpengine.netdna-ssl.com/wp-content/uploads/Scrambled-with-Milk-930x620.jpg",
 				URL:                "https://www.incredibleegg.org/recipe/basic-scrambled-eggs/",
@@ -83,8 +87,8 @@ func TestRecipe_String(t *testing.T) {
 		{
 			name: "Test Case 1",
 			fields: fields{
-				MetaContext:        context,
-				MetaType:           "Recipe",
+				MetaContext:        schema.MetaContext,
+				MetaType:           schema.MetaRecipe,
 				Name:               "Basic Scrambled Eggs Recipe",
 				RecipeCuisine:      "English",
 				RecipeCategory:     "Breakfast",
@@ -93,8 +97,8 @@ func TestRecipe_String(t *testing.T) {
 				Ingredients:        ingredients,
 				RecipeInstructions: recipeInstructions,
 				RecipeYield:        "2 servings",
-				Nutrition: NutritionInformation{
-					MetaType:           MetaNutritionInformation,
+				Nutrition: schema.NutritionInformation{
+					MetaType:           schema.MetaNutritionInformation,
 					Calories:           "320 calories",
 					CholesterolContent: "3%",
 				},
@@ -109,7 +113,7 @@ func TestRecipe_String(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			r := Recipe{
+			r := schema.Recipe{
 				MetaContext:        tt.fields.MetaContext,
 				MetaType:           tt.fields.MetaType,
 				Name:               tt.fields.Name,

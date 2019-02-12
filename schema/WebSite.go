@@ -44,7 +44,7 @@ type OwnershipInfo struct {
 //NewWebSite returns a new instance of WebSite
 func NewWebSite(name, url, inLanguage, keywords string) WebSite {
 	return WebSite{
-		MetaContext: context,
+		MetaContext: MetaContext,
 		MetaType:    MetaWebSite,
 		Name:        name,
 		URL:         url,

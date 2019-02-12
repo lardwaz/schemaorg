@@ -5,6 +5,9 @@ import (
 	"strings"
 )
 
+//MetaMovie holds the metatype value
+const MetaMovie string = "Movie"
+
 //Movie is a cinema film
 type Movie struct {
 	MetaContext      string      `json:"MetaContext"`
@@ -28,7 +31,7 @@ type Movie struct {
 //NewMovie returns a new instance of Movie with compulsory attributes set
 func NewMovie(name, description, url, image string, director, actor []string) Movie {
 	return Movie{
-		MetaContext: context,
+		MetaContext: MetaContext,
 		MetaType:    "Movie",
 		Name:        name,
 		Description: description,

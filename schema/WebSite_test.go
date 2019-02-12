@@ -1,6 +1,10 @@
-package schema
+package schema_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/gocipe/schemaorg/schema"
+)
 
 func TestWebSite_String(t *testing.T) {
 	type fields struct {
@@ -9,23 +13,23 @@ func TestWebSite_String(t *testing.T) {
 		Name        string
 		URL         string
 		Issn        string
-		Creator     Organization
+		Creator     schema.Organization
 		InLanguage  string
 		Keywords    string
-		License     License
-		Audience    Audience
+		License     schema.License
+		Audience    schema.Audience
 	}
 
-	case1 := NewWebSite("Culture", "https://culture.lexpress.mu/", "FR", "Culture, Authenticite, Mauricien")
+	case1 := schema.NewWebSite("Culture", "https://culture.lexpress.mu/", "FR", "Culture, Authenticite, Mauricien")
 
-	case2 := WebSite{
-		MetaContext: context,
-		MetaType:    MetaWebSite,
+	case2 := schema.WebSite{
+		MetaContext: schema.MetaContext,
+		MetaType:    schema.MetaWebSite,
 		Name:        "Culture",
 		URL:         "https://test.test.mu/",
 		Issn:        "9999-9999",
-		Creator: Organization{
-			MetaType:  MetaOrganization,
+		Creator: schema.Organization{
+			MetaType:  schema.MetaOrganization,
 			Address:   "Example Road, Example City, Example",
 			Email:     "test@gmail.com",
 			Telephone: "999-9999",
@@ -33,8 +37,8 @@ func TestWebSite_String(t *testing.T) {
 		},
 		InLanguage: "EN, FR, KR",
 		Keywords:   "Testing, Test Driven, Test Cases",
-		License: License{
-			MetaType:      MetaLicense,
+		License: schema.License{
+			MetaType:      schema.MetaLicense,
 			CopyrightYear: 2018,
 		},
 	}
@@ -47,8 +51,8 @@ func TestWebSite_String(t *testing.T) {
 		{
 			name: "Test Case 1",
 			fields: fields{
-				MetaContext: context,
-				MetaType:    MetaWebSite,
+				MetaContext: schema.MetaContext,
+				MetaType:    schema.MetaWebSite,
 				Name:        "Culture",
 				URL:         "https://culture.lexpress.mu/",
 				InLanguage:  "FR",
@@ -59,13 +63,13 @@ func TestWebSite_String(t *testing.T) {
 		{
 			name: "Test Case 2",
 			fields: fields{
-				MetaContext: context,
-				MetaType:    MetaWebSite,
+				MetaContext: schema.MetaContext,
+				MetaType:    schema.MetaWebSite,
 				Name:        "Culture",
 				URL:         "https://test.test.mu/",
 				Issn:        "9999-9999",
-				Creator: Organization{
-					MetaType:  MetaOrganization,
+				Creator: schema.Organization{
+					MetaType:  schema.MetaOrganization,
 					Address:   "Example Road, Example City, Example",
 					Email:     "test@gmail.com",
 					Telephone: "999-9999",
@@ -73,8 +77,8 @@ func TestWebSite_String(t *testing.T) {
 				},
 				InLanguage: "EN, FR, KR",
 				Keywords:   "Testing, Test Driven, Test Cases",
-				License: License{
-					MetaType:      MetaLicense,
+				License: schema.License{
+					MetaType:      schema.MetaLicense,
 					CopyrightYear: 2018,
 				},
 			},
@@ -83,7 +87,7 @@ func TestWebSite_String(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ws := WebSite{
+			ws := schema.WebSite{
 				MetaContext: tt.fields.MetaContext,
 				MetaType:    tt.fields.MetaType,
 				Name:        tt.fields.Name,

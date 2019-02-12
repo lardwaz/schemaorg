@@ -49,7 +49,7 @@ type NutritionInformation struct {
 //NewRecipe returns a new instance of Recipe with compulsory attributes set
 func NewRecipe(name, image, url string, ingredients, recipeInstructions []string) Recipe {
 	return Recipe{
-		MetaContext:        context,
+		MetaContext:        MetaContext,
 		MetaType:           MetaRecipe,
 		Name:               name,
 		Image:              image,

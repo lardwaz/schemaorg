@@ -4,6 +4,9 @@ import "encoding/json"
 
 const suffixForDayOfWeek = "http://schema.org/"
 
+//MetaArticle holds meta value of article
+const MetaArticle string = "Article"
+
 //Article such as a news article or piece of investigative report. Newspapers and magazines have articles of many different types and this is intended to cover them all.
 type Article struct {
 	MetaContext          string                   `json:"MetaContext"`
@@ -47,10 +50,13 @@ type SpeakableSpecification struct {
 //NewArticle returns a new instance of Article with compulsory inputs
 func NewArticle(headline, summary, authorFirstName, authorFamilyName, url, image string) Article {
 	return Article{
-		Headline:  headline,
-		Name:      headline,
-		Backstory: summary,
+		MetaContext: MetaContext,
+		MetaType:    MetaArticle,
+		Headline:    headline,
+		Name:        headline,
+		Backstory:   summary,
 		Author: Person{
+			MetaType:   MetaPerson,
 			GivenName:  authorFirstName,
 			FamilyName: authorFamilyName,
 		},

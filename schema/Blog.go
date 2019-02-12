@@ -2,6 +2,21 @@ package schema
 
 import "encoding/json"
 
+//MetaBlog holds meta type value
+const MetaBlog string = "Blog"
+
+//MetaBlogPosting holds meta type value
+const MetaBlogPosting string = "BlogPosting"
+
+//MetaCreativeWork holds meta type value
+const MetaCreativeWork string = "CreativeWork"
+
+//MetaImageObject holds meta type value
+const MetaImageObject string = "ImageObject"
+
+//MetaMediaObject holds meta type value
+const MetaMediaObject string = "MediaObject"
+
 //Blog is an online diary or journal located on a website.
 type Blog struct {
 	MetaContext string      `json:"MetaContext"`
@@ -69,12 +84,13 @@ type MediaObject struct {
 //NewBlog returns a new instance of Blog with compulsory inputs
 func NewBlog(title, url, image, summary string) Blog {
 	return Blog{
-		MetaContext: context,
-		MetaType:    "Blog",
+		MetaContext: MetaContext,
+		MetaType:    MetaBlog,
 		Name:        title,
 		URL:         url,
 		Image:       image,
 		BlogPost: BlogPosting{
+			MetaType:  MetaBlogPosting,
 			Backstory: summary,
 		},
 	}

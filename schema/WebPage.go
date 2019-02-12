@@ -20,8 +20,8 @@ type WebPage struct {
 //NewWebPage is a new instance of webpage
 func NewWebPage(name, desc, url, image, keywords string) WebPage {
 	return WebPage{
-		MetaContext: context,
-		MetaType:    "WebPage",
+		MetaContext: MetaContext,
+		MetaType:    MetaWebPage,
 		Name:        name,
 		Description: desc,
 		URL:         url,

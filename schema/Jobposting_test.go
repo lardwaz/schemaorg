@@ -1,25 +1,29 @@
-package schema
+package schema_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/gocipe/schemaorg/schema"
+)
 
 func TestJobPosting_String(t *testing.T) {
 	type fields struct {
 		MetaContext            string
 		MetaType               string
-		BaseSalary             MonetaryAmount
+		BaseSalary             schema.MonetaryAmount
 		DatePosted             string
 		EducationRequirements  string
 		EmploymentType         string
-		EstimatedSalary        MonetaryAmount
+		EstimatedSalary        schema.MonetaryAmount
 		ExperienceRequirements string
-		HiringOrganization     Organization
+		HiringOrganization     schema.Organization
 		IncentiveCompensation  string
 		Industry               string
 		JobBenefits            string
-		JobLocation            Place
+		JobLocation            schema.Place
 		OccupationalCategory   string
 		Qualifications         string
-		RelevantOccupation     Occupation
+		RelevantOccupation     schema.Occupation
 		Responsibilities       string
 		SalaryCurrency         string
 		Skills                 string
@@ -29,13 +33,13 @@ func TestJobPosting_String(t *testing.T) {
 		WorkHours              string
 	}
 
-	case1 := NewJobPosting("2019-01-03", "Full-Time", "Software Developer", "Ceridian Learning Center, Quatres Bornes")
+	case1 := schema.NewJobPosting("2019-01-03", "Full-Time", "Software Developer", "Ceridian Learning Center, Quatres Bornes")
 
-	case2 := JobPosting{
-		MetaContext: context,
-		MetaType:    "JobPosting",
-		BaseSalary: MonetaryAmount{
-			MetaType: MetaMonetaryAmount,
+	case2 := schema.JobPosting{
+		MetaContext: schema.MetaContext,
+		MetaType:    schema.MetaJobPosting,
+		BaseSalary: schema.MonetaryAmount{
+			MetaType: schema.MetaMonetaryAmount,
 			Value:    "Rs 25000",
 		},
 		DatePosted:             "2019-02-10",
@@ -43,8 +47,8 @@ func TestJobPosting_String(t *testing.T) {
 		EmploymentType:         "Permanent",
 		ExperienceRequirements: "2 yrs",
 		Industry:               "Computing",
-		JobLocation: Place{
-			MetaType: MetaPlace,
+		JobLocation: schema.Place{
+			MetaType: schema.MetaPlace,
 			Address:  "Ceridian Learning Center, Quatres Bornes",
 		},
 		OccupationalCategory: "Devops",
@@ -58,13 +62,14 @@ func TestJobPosting_String(t *testing.T) {
 		{
 			name: "Test Case 1",
 			fields: fields{
-				MetaContext:    context,
+				MetaContext:    schema.MetaContext,
 				MetaType:       "JobPosting",
 				DatePosted:     "2019-01-03",
 				EmploymentType: "Full-Time",
 				Title:          "Software Developer",
-				JobLocation: Place{
-					Address: "Ceridian Learning Center, Quatres Bornes",
+				JobLocation: schema.Place{
+					MetaType: schema.MetaPlace,
+					Address:  "Ceridian Learning Center, Quatres Bornes",
 				},
 			},
 			want: case1.String(),
@@ -72,10 +77,10 @@ func TestJobPosting_String(t *testing.T) {
 		{
 			name: "Test Case 2",
 			fields: fields{
-				MetaContext: context,
+				MetaContext: schema.MetaContext,
 				MetaType:    "JobPosting",
-				BaseSalary: MonetaryAmount{
-					MetaType: MetaMonetaryAmount,
+				BaseSalary: schema.MonetaryAmount{
+					MetaType: schema.MetaMonetaryAmount,
 					Value:    "Rs 25000",
 				},
 				DatePosted:             "2019-02-10",
@@ -83,8 +88,8 @@ func TestJobPosting_String(t *testing.T) {
 				EmploymentType:         "Permanent",
 				ExperienceRequirements: "2 yrs",
 				Industry:               "Computing",
-				JobLocation: Place{
-					MetaType: MetaPlace,
+				JobLocation: schema.Place{
+					MetaType: schema.MetaPlace,
 					Address:  "Ceridian Learning Center, Quatres Bornes",
 				},
 				OccupationalCategory: "Devops",
@@ -95,7 +100,7 @@ func TestJobPosting_String(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			jp := JobPosting{
+			jp := schema.JobPosting{
 				MetaContext:            tt.fields.MetaContext,
 				MetaType:               tt.fields.MetaType,
 				BaseSalary:             tt.fields.BaseSalary,

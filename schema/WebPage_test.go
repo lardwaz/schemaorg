@@ -1,6 +1,10 @@
-package schema
+package schema_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/gocipe/schemaorg/schema"
+)
 
 func TestWebPage_String(t *testing.T) {
 	type fields struct {
@@ -11,14 +15,14 @@ func TestWebPage_String(t *testing.T) {
 		Keywords    string
 		Image       string
 		URL         string
-		Speakable   SpeakableSpecification
+		Speakable   schema.SpeakableSpecification
 	}
 
-	case1 := NewWebPage("GeoCoordinates", "GeoCoordinates is about the long and lat of a point in the map", "https://schema.org/GeoCoordinates", "https://www.worldatlas.com/r/w728-h425-c728x425/upload/83/db/8f/geography.jpg", "Geography, Countries, Coordinates")
+	case1 := schema.NewWebPage("GeoCoordinates", "GeoCoordinates is about the long and lat of a point in the map", "https://schema.org/GeoCoordinates", "https://www.worldatlas.com/r/w728-h425-c728x425/upload/83/db/8f/geography.jpg", "Geography, Countries, Coordinates")
 
-	case2 := WebPage{
-		MetaType:    MetaWebPage,
-		MetaContext: context,
+	case2 := schema.WebPage{
+		MetaType:    schema.MetaWebPage,
+		MetaContext: schema.MetaContext,
 		Name:        "What Is Geography?",
 		Description: "Covers the essentials of Geography, one of the most fascinating and relevant areas of study.",
 		Keywords:    "WorldAtlas",
@@ -34,8 +38,8 @@ func TestWebPage_String(t *testing.T) {
 		{
 			name: "Test Case 1",
 			fields: fields{
-				MetaType:    MetaWebPage,
-				MetaContext: context,
+				MetaType:    schema.MetaWebPage,
+				MetaContext: schema.MetaContext,
 				Name:        "GeoCoordinates",
 				Description: "GeoCoordinates is about the long and lat of a point in the map",
 				Keywords:    "Geography, Countries, Coordinates",
@@ -47,8 +51,8 @@ func TestWebPage_String(t *testing.T) {
 		{
 			name: "Test Case 2",
 			fields: fields{
-				MetaType:    MetaWebPage,
-				MetaContext: context,
+				MetaType:    schema.MetaWebPage,
+				MetaContext: schema.MetaContext,
 				Name:        "What Is Geography?",
 				Description: "Covers the essentials of Geography, one of the most fascinating and relevant areas of study.",
 				Keywords:    "WorldAtlas",
@@ -60,7 +64,7 @@ func TestWebPage_String(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			wp := WebPage{
+			wp := schema.WebPage{
 				MetaType:    tt.fields.MetaType,
 				MetaContext: tt.fields.MetaContext,
 				Name:        tt.fields.Name,

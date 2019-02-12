@@ -1,6 +1,10 @@
-package schema
+package schema_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/gocipe/schemaorg/schema"
+)
 
 func TestArticle_String(t *testing.T) {
 	type fields struct {
@@ -12,22 +16,22 @@ func TestArticle_String(t *testing.T) {
 		PageEnd              string
 		PageStart            string
 		Pagination           string
-		Speakable            []SpeakableSpecification
+		Speakable            []schema.SpeakableSpecification
 		WordCount            int64
-		About                Thing
-		Audience             Audience
-		Author               Person
-		ContentLocation      Place
+		About                schema.Thing
+		Audience             schema.Audience
+		Author               schema.Person
+		ContentLocation      schema.Place
 		ContentRating        string
-		ContentReferenceTime DateTime
-		Contributor          Organization
-		CopyrightHolder      Organization
+		ContentReferenceTime schema.DateTime
+		Contributor          schema.Organization
+		CopyrightHolder      schema.Organization
 		CopyrightYear        int64
-		Creator              Organization
+		Creator              schema.Organization
 		DateCreated          string
 		DateModified         string
 		DatePublished        string
-		Editor               Person
+		Editor               schema.Person
 		Headline             string
 		Keywords             string
 		Name                 string
@@ -35,9 +39,9 @@ func TestArticle_String(t *testing.T) {
 		Image                string
 	}
 
-	schema := Article{
-		MetaContext:    context,
-		MetaType:       "Article",
+	article := schema.Article{
+		MetaContext:    schema.MetaContext,
+		MetaType:       schema.MetaArticle,
 		ArticleBody:    "The indefinite article takes two forms. It’s the word a when it precedes a word that begins with a consonant.",
 		ArticleSection: "The Indefinite Article",
 		Backstory:      "Articles are words that define a noun as specific or unspecific. ",
@@ -45,17 +49,17 @@ func TestArticle_String(t *testing.T) {
 		PageStart:      "",
 		Pagination:     "",
 		WordCount:      320,
-		About: Thing{
-			MetaType:    "Thing",
+		About: schema.Thing{
+			MetaType:    schema.MetaThing,
 			Description: "The indefinite article indicates that a noun refers to a general idea rather than a particular thing. ",
 		},
-		Audience: Audience{
-			MetaType:     "Audience",
+		Audience: schema.Audience{
+			MetaType:     schema.MetaAudience,
 			AudienceType: "Student",
 			Description:  "HSC Students",
 		},
-		Author: Person{
-			MetaType:   "Person",
+		Author: schema.Person{
+			MetaType:   schema.MetaPerson,
 			GivenName:  "Jean",
 			FamilyName: "Paul",
 		},
@@ -71,7 +75,7 @@ func TestArticle_String(t *testing.T) {
 	}
 
 	//Default Case testing
-	schema1 := NewArticle("Unit Testing", "When building a great application, it is a good idea to plan for proper testing of each of the components.", "James", "Smith", "https://www.thepolyglotdeveloper.com/2017/02/unit-testing-golang-application-includes-http/", "https://testimage.com/test.jpeg")
+	article1 := schema.NewArticle("Unit Testing", "When building a great application, it is a good idea to plan for proper testing of each of the components.", "James", "Smith", "https://www.thepolyglotdeveloper.com/2017/02/unit-testing-golang-application-includes-http/", "https://testimage.com/test.jpeg")
 
 	tests := []struct {
 		name   string
@@ -81,8 +85,8 @@ func TestArticle_String(t *testing.T) {
 		{
 			name: "Test Case 1",
 			fields: fields{
-				MetaContext:    context,
-				MetaType:       "Article",
+				MetaContext:    schema.MetaContext,
+				MetaType:       schema.MetaArticle,
 				ArticleBody:    "The indefinite article takes two forms. It’s the word a when it precedes a word that begins with a consonant.",
 				ArticleSection: "The Indefinite Article",
 				Backstory:      "Articles are words that define a noun as specific or unspecific. ",
@@ -90,17 +94,17 @@ func TestArticle_String(t *testing.T) {
 				PageStart:      "",
 				Pagination:     "",
 				WordCount:      320,
-				About: Thing{
+				About: schema.Thing{
 					MetaType:    "Thing",
 					Description: "The indefinite article indicates that a noun refers to a general idea rather than a particular thing. ",
 				},
-				Audience: Audience{
-					MetaType:     "Audience",
+				Audience: schema.Audience{
+					MetaType:     schema.MetaAudience,
 					AudienceType: "Student",
 					Description:  "HSC Students",
 				},
-				Author: Person{
-					MetaType:   "Person",
+				Author: schema.Person{
+					MetaType:   schema.MetaPerson,
 					GivenName:  "Jean",
 					FamilyName: "Paul",
 				},
@@ -114,7 +118,7 @@ func TestArticle_String(t *testing.T) {
 				URL:           "https://www.grammarly.com/blog/articles/",
 				Image:         "http://i64.tinypic.com/2ob4i.jpg",
 			},
-			want: schema.String(),
+			want: article.String(),
 		},
 
 		{
@@ -123,19 +127,20 @@ func TestArticle_String(t *testing.T) {
 				Headline:  "Unit Testing",
 				Name:      "Unit Testing",
 				Backstory: "When building a great application, it is a good idea to plan for proper testing of each of the components.",
-				Author: Person{
+				Author: schema.Person{
+					MetaType:   schema.MetaPerson,
 					GivenName:  "James",
 					FamilyName: "Smith",
 				},
 				URL:   "https://www.thepolyglotdeveloper.com/2017/02/unit-testing-golang-application-includes-http/",
 				Image: "https://testimage.com/test.jpeg",
 			},
-			want: schema1.String(),
+			want: article1.String(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			a := Article{
+			a := schema.Article{
 				MetaContext:          tt.fields.MetaContext,
 				MetaType:             tt.fields.MetaType,
 				ArticleBody:          tt.fields.ArticleBody,
