@@ -1,4 +1,4 @@
-package schemaorg
+package schemaorg // import "go.lsl.digital/gocipe/schemaorg"
 
 // HTMLMeta : structure defining various params in html base template
 type HTMLMeta struct {
