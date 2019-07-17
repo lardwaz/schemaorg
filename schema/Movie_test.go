@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gocipe/schemaorg/schema"
+	"go.lsl.digital/lardwaz/schemaorg/schema"
 )
 
 func TestMovie_String(t *testing.T) {

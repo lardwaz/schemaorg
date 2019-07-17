@@ -3,7 +3,7 @@ package schema_test
 import (
 	"testing"
 
-	schema "github.com/gocipe/schemaorg/schema"
+	schema "go.lsl.digital/lardwaz/schemaorg/schema"
 )
 
 func TestBlog_String(t *testing.T) {

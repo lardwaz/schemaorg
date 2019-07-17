@@ -9,8 +9,8 @@ import (
 	"text/template"
 
 	"github.com/gorilla/mux"
-	schemaorg "github.com/gocipe/schemaorg"
-	"github.com/gocipe/schemaorg/schema"
+	schemaorg "go.lsl.digital/lardwaz/schemaorg"
+	"go.lsl.digital/lardwaz/schemaorg/schema"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -1,4 +1,4 @@
-module go.lsl.digital/gocipe/schemaorg
+module go.lsl.digital/lardwaz/schemaorg
 
 require (
 	github.com/gorilla/mux v1.7.0
